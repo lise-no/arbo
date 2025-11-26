@@ -1,93 +1,262 @@
-# PF-Ocaml
+# PF-Ocaml - Virtual Filesystem
 
+## Description du Projet
 
+**PF-Ocaml** est un système de fichiers virtuel implémenté en **OCaml**. Ce projet académique simule un système de fichiers en mémoire avec une interface REPL (Read-Eval-Print Loop) interactive en ligne de commande. 
 
-## Getting started
+### Objectif
+L'objectif de ce projet est de :
+- Implémenter une structure de données représentant un arborescence de fichiers et répertoires
+- Développer une interface utilisateur interactive permettant de naviguer et manipuler le système de fichiers
+- Mettre en pratique les concepts de programmation fonctionnelle en OCaml (récursivité, types algébriques, immuabilité)
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+### Fonctionnalités Principales
+- ✅ Système de fichiers hiérarchique avec répertoires et fichiers
+- ✅ Navigation interactive via REPL
+- ✅ Structure de données mutuellement récursive pour représenter l'arborescence
+- ✅ Gestion des chemins (path) et noms de fichiers
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
 
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## Structure du Projet
 
 ```
-cd existing_repo
-git remote add origin https://gitlab.univ-nantes.fr/E25D505L/pf-ocaml.git
-git branch -M main
+Projet_DJEUTCHEU_DEGBOEVI/
+├── main.ml              # Point d'entrée principal du programme
+├── filesystem.ml        # Implémentation du système de fichiers
+├── filesystem.mli       # Interface/signature du module filesystem
+├── repl.ml              # Boucle interactive (Read-Eval-Print Loop)
+├── commands.ml          # Implémentation des commandes disponibles
+├── dune                 # Configuration de build dune
+├── dune-project         # Configuration du projet dune
+└── _build/              # Répertoire de build (généré automatiquement)
+    └── default/         # Artefacts compilés
+```
+
+### Description des Modules
+
+| Fichier | Description |
+|---------|-------------|
+| `filesystem.mli` | Définit les types et l'interface publique : `name`, `path`, `file`, `directory`, `filesystem` |
+| `filesystem.ml` | Implémente la logique du système de fichiers et les fonctions utilitaires |
+| `repl.ml` | Gère la boucle interactive, affiche le prompt et traite les entrées utilisateur |
+| `commands.ml` | Contient les implémentations des commandes disponibles (ex: fonction `existe`) |
+| `main.ml` | Point d'entrée qui initialise le système de fichiers et lance la REPL |
+
+---
+
+## Installation et Configuration
+
+### Prérequis
+- **OCaml** (version 4.14 ou supérieure)
+- **Dune** (système de build pour OCaml)
+- Un terminal compatible (PowerShell, Bash, etc.)
+
+### Installation
+
+1. Clonez le repository :
+```bash
+git clone https://gitlab.univ-nantes.fr/E25D505L/pf-ocaml.git
+cd pf-ocaml
+```
+
+2. Naviguez dans le répertoire du projet :
+```bash
+cd Projet_DJEUTCHEU_DEGBOEVI
+```
+
+3. Compilez le projet avec Dune :
+```bash
+dune build
+```
+
+---
+
+## Utilisation
+
+### Lancer le programme
+
+```bash
+dune exec ./main.exe
+```
+
+Vous verrez apparaître un prompt interactif :
+```
+/> 
+```
+
+### Commandes Disponibles
+
+Une fois dans la REPL, vous pouvez utiliser les commandes suivantes :
+
+- **`quit` ou `exit`** : Quitter le programme
+- *D'autres commandes à implémenter selon les spécifications du projet*
+
+### Exemple d'Utilisation
+
+```bash
+$ dune exec ./main.exe
+/> exit
+Exit
+```
+
+---
+
+## Commandes Git Essentielles
+
+### Configuration initiale
+```bash
+# Configurer votre identité Git (si ce n'est pas déjà fait)
+git config --global user.name "Votre Nom"
+git config --global user.email "votre.email@example.com"
+```
+
+### Clonage et synchronisation
+```bash
+# Cloner le repository
+git clone https://gitlab.univ-nantes.fr/E25D505L/pf-ocaml.git
+
+# Récupérer les dernières modifications du serveur
+git fetch origin
+
+# Fusionner les modifications (depuis origin/main)
+git pull origin main
+
+# Mettre à jour vers la branche main et récupérer les changements
+git checkout main
+git pull
+```
+
+### Gestion des branches
+```bash
+# Créer une nouvelle branche pour vos modifications
+git checkout -b nom-de-la-branche
+
+# Lister les branches locales
+git branch
+
+# Lister toutes les branches (locales + distantes)
+git branch -a
+
+# Basculer vers une autre branche
+git checkout nom-de-la-branche
+
+# Supprimer une branche locale
+git branch -d nom-de-la-branche
+```
+
+### Validation des modifications
+```bash
+# Voir le statut des fichiers modifiés
+git status
+
+# Ajouter des fichiers au staging
+git add nom-du-fichier
+git add .                    # Ajouter tous les fichiers
+
+# Vérifier les différences avant de valider
+git diff                     # Changements non stagés
+git diff --staged            # Changements stagés
+
+# Valider avec un message descriptif
+git commit -m "Description des changements"
+
+# Valider en modifiant le message (si oubli)
+git commit --amend
+```
+
+### Envoi et récupération
+```bash
+# Envoyer vos modifications vers le serveur
+git push origin nom-de-la-branche
+
+# Envoyer vers la branche main (après avoir basculé dessus)
+git push origin main
+
+# Forcer l'envoi (à utiliser avec prudence)
 git push -uf origin main
+
+# Récupérer et fusionner automatiquement
+git pull origin main
 ```
 
-## Integrate with your tools
+### Fusion (Merge) et Requêtes de fusion
+```bash
+# Fusionner une branche dans la branche courante
+git merge nom-de-la-branche
 
-- [ ] [Set up project integrations](https://gitlab.univ-nantes.fr/E25D505L/pf-ocaml/-/settings/integrations)
+# Annuler une fusion en cas de conflit
+git merge --abort
 
-## Collaborate with your team
+# Résoudre les conflits manuellement, puis :
+git add .
+git commit -m "Résolution des conflits"
+```
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+### Historique et consultation
+```bash
+# Voir l'historique des commits
+git log
 
-## Test and Deploy
+# Voir l'historique de manière compacte
+git log --oneline
 
-Use the built-in continuous integration in GitLab.
+# Voir les changements d'un commit spécifique
+git show <hash-du-commit>
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+# Voir qui a modifié chaque ligne d'un fichier
+git blame nom-du-fichier
+```
 
-***
+### Annulation de modifications
+```bash
+# Annuler les modifications d'un fichier non stagé
+git checkout -- nom-du-fichier
 
-# Editing this README
+# Retirer un fichier du staging
+git reset HEAD nom-du-fichier
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+# Annuler le dernier commit (garder les modifications)
+git reset --soft HEAD~1
 
-## Suggestions for a good README
+# Annuler le dernier commit (perdre les modifications)
+git reset --hard HEAD~1
+```
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+### Workflow typique pour ce projet GitLab
 
-## Name
-Choose a self-explaining name for your project.
+```bash
+# 1. Mettre à jour votre branche locale
+git pull origin main
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+# 2. Créer une branche pour votre fonctionnalité
+git checkout -b feature/nom-de-la-feature
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+# 3. Faire vos modifications
+# ... éditer les fichiers ...
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+# 4. Valider vos changements
+git add .
+git commit -m "Ajout de la fonctionnalité XYZ"
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+# 5. Envoyer votre branche
+git push origin feature/nom-de-la-feature
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+# 6. Créer une merge request (Pull Request) sur GitLab
+#    -> Via l'interface web du projet
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+# 7. Une fois fusionné, récupérer les changements
+git checkout main
+git pull origin main
+```
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+---
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+## Auteurs
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+- DJEUTCHEU
+- DEGBOEVI
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+## Licence
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Projet académique - Université de Nantes
