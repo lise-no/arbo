@@ -11,3 +11,4 @@ let rec existe children target_name =
       if d.name = target_name then true
       else existe rest target_name
 
+(* Récupère l'élément portant target_name dans children *)
