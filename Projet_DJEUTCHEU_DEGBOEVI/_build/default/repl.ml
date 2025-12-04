@@ -16,8 +16,45 @@ let rec loop (fs : Filesystem.filesystem) : unit =
         | [] -> loop fs
 
         (* Insérer les commandes ici *)
+        | "mkdir" :: dirname :: _ ->
+            loop (Commands.mkdir fs dirname)
 
+        | "touch" :: filename :: _ ->
+            loop (Commands.touch fs filename)
+(*
+        | "ls-l" :: _ ->
+          Commands.ls_l fs;
+            loop fs
+*)
+        | "ls" :: _ ->
+            let _ = Commands.ls fs in   (* on exécute la commande *)
+            loop fs                     (* on continue avec le même fs *)
+
+        | "cat" :: filename :: _ ->
+            let _ = Commands.cat fs filename in
+            loop fs
+
+        | "pwd" :: _ ->
+            let _ = Commands.pwd fs in
+            loop fs
+
+
+        | "cd" :: dirname :: _ ->
+            loop (Commands.cd fs dirname)
+
+        | "rm" :: name_elem :: _ ->
+            loop (Commands.rm fs name_elem)
+
+        | "mv" :: name_elem :: new_dir :: _ ->
+            loop (Commands.mv fs name_elem new_dir)
+
+        | "cp" :: name_elem :: new_dir :: _ ->
+            loop (Commands.cp fs name_elem new_dir)
+
+          
         | command :: _ ->
             Printf.eprintf "Command not found: %s\n%!" command;
             loop fs
       end
+
+

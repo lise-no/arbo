@@ -3,9 +3,19 @@ type name = Name of string
 
 type path = name list
 
-type file = { name: name; content: string }
+type file = { 
+  name: name; 
+  content: string ;
+  (*created_at: float;    
+  id: int;*)
+  }
 
-type directory = { name: name; children: node list }
+type directory = { 
+  name: name; 
+  children: node list;
+  (*created_at: float;    
+  id: int;*)
+ }
 and node = File of file | Dir of directory
 
 type filesystem = { root: directory; current_path: path }
